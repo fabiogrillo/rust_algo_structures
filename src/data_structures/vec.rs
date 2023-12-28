@@ -77,6 +77,18 @@ pub mod vec {
                 Some(&self.buffer[index])
             }
         }
+
+        // returns true if the vector contains no elements
+        pub fn is_empty(&self) -> bool {
+            self.len == 0
+        }
+
+        // shortens the vector keeping the first len elements and dropping the rest
+        pub fn truncate(&mut self, len: usize) {
+            if len < self.len {
+                self.len = len;
+            }
+        }
     }
 
     #[cfg(test)]
@@ -141,6 +153,19 @@ pub mod vec {
             vec.push(1);
             assert_eq!(vec.get(0), Some(&1));
             assert_eq!(vec.get(1), None);
+        }
+
+        #[test]
+        fn test_truncate() {
+            let mut vec = Vec::new();
+            for i in 0..10 {
+                vec.push(i);
+            }
+            vec.truncate(5);
+            assert_eq!(vec.len, 5);
+            for i in 0..5 {
+                assert_eq!(vec.buffer[i], i);
+            }
         }
     }
 }
