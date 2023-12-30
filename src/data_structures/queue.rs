@@ -27,6 +27,7 @@ pub mod queue {
             self.len += 1;
         }
 
+        // appends an element to the back of the queue
         pub fn push_front(&mut self, value: T) {
             if self.is_full() {
                 self.grow();
@@ -36,6 +37,29 @@ pub mod queue {
             }
             self.buffer[self.head] = value;
             self.len += 1;
+        }
+
+        // removes the last element from the queue and returns it or None if it is empty
+        pub fn pop_back(&mut self) -> Option<T> {
+            if self.is_empty() {
+                None
+            } else {
+                let index = (self.head + self.len - 1) % self.buffer.len();
+                self.len -= 1;
+                Some(self.buffer[index].clone())
+            }
+        }
+
+        //removes the first element from the queue and return it or None if it is empty
+        pub fn pop_front(&mut self) -> Option<T> {
+            if self.is_empty() {
+                None
+            } else {
+                let value = self.buffer[self.head].clone();
+                self.head = (self.head + 1) % self.buffer.len();
+                self.len -= 1;
+                Some(value)
+            }
         }
 
         // return true if the buffer is full
@@ -93,12 +117,33 @@ pub mod queue {
         fn test_push_front_queue() {
             let mut queue = Queue::<i32>::new();
             queue.push_front(4);
-            assert_eq!(queue.buffer[0], 4);
+            assert_eq!(queue.buffer[queue.head], 4);
             queue.push_front(8);
-            assert_eq!(queue.head, 8);
-            //assert_eq!(queue.buffer[0], 8);
-            //assert_eq!(queue.buffer[1], 4);
+            assert_eq!(queue.buffer[queue.head], 8);
             assert_eq!(queue.len, 2);
+        }
+
+        #[test]
+        fn test_pop_back() {
+            let mut queue = Queue {
+                head: 0,
+                len: 5,
+                buffer: Box::new([1, 2, 3, 4, 5]),
+            };
+            assert_eq!(queue.pop_back(), Some(5));
+            assert_eq!(queue.len, 4);
+        }
+
+        #[test]
+        fn test_pop_front() {
+            let mut queue = Queue {
+                head: 0,
+                len: 5,
+                buffer: Box::new([1, 2, 3, 4, 5]),
+            };
+            assert_eq!(queue.pop_front(), Some(1));
+            assert_eq!(queue.len, 4);
+            assert_eq!(queue.head, 1);
         }
     }
 }
