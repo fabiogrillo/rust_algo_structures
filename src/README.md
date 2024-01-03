@@ -7,6 +7,7 @@ This directory contains a collection of basic data structures implemented in Rus
 - Queue (`queue.rs`)
 - Vector (`vec.rs`)
 - HashMap (`hash_map.rs`)
+- HashSet (`hash_set.rs`)
 
 Each data structure comes with a set of unit tests to ensure correct functionality. These tests are contained within each `.rs` file under a `#[cfg(test)]` module.
 
