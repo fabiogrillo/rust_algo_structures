@@ -21,7 +21,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   <img src="./pics/rustacean.gif" width="200" height="200" />
 </p>
 
-## To Dpo
+## To Do
 
 - Implement a user interface to visually demonstrate how the data structures and algorithms work. This will make it easier for users of the library to understand the inner workings of the algorithms and data structures.
 - Perform a performance comparison with the standard library in Python. This will help us understand how our implementations stack up against established libraries in terms of speed and efficiency.
